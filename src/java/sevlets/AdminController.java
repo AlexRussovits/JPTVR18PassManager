@@ -103,7 +103,7 @@ public class AdminController extends HttpServlet {
                 userId = request.getParameter("userId");
                 String newLogin = request.getParameter("login");
                 String newPassword = request.getParameter("password");
-                String newRole = request.getParameter("role");
+                Role newRole = new Role();
                 if(userId == null) {
                     request.setAttribute("info", "Не найден пользователь с идентификатором " + userId);
                     request.getRequestDispatcher("/showListUsers").forward(request, response);

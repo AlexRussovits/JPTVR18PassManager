@@ -68,22 +68,21 @@ public class UserRolesFacade extends AbstractFacade<UserRoles> {
         em.createQuery("DELETE FROM UserRoles ur WHERE ur.user = :updateUser").setParameter("updateUser", updateUser).executeUpdate();
     }
     
-    public void setNewRoleToUser(String newRoleName, User updateUser) {
-        if(newRoleName.equals("ADMIN")) {
-            Role role = roleFacade.getRole(newRoleName);
-            UserRoles ur = new UserRoles();
+    public void setNewRoleToUser(Role newRole, User updateUser) {
+        UserRoles ur = new UserRoles();
+        if(newRole.getName().equals("ADMIN")) {          
             ur.setUser(updateUser);
-            ur.setRole(role);
+            ur.setRole(newRole);
             this.create(ur);
-            role = roleFacade.getRole("USER");
+            Role role = roleFacade.getRole("USER");
+            ur = new UserRoles();
+            ur.setUser(updateUser);
             ur.setRole(role);
             this.create(ur);
         }
-        if(newRoleName.equals("USER")) {
-            Role role = roleFacade.getRole(newRoleName);
-            UserRoles ur = new UserRoles();
+        if(newRole.getName().equals("USER")) {
             ur.setUser(updateUser);
-            ur.setRole(role);
+            ur.setRole(newRole);
             this.create(ur);
         }       
     }   
